@@ -2,7 +2,6 @@ import React from "react"
 import ReactDOM from "react-dom"
 import { BrowserRouter as Router, Route } from "react-router-dom"
 import ApolloClient from "apollo-boost"
-import { InMemoryCache } from "apollo-cache-inmemory"
 import { ApolloProvider } from "react-apollo"
 import ProductList from "./ProductList"
 import ProductDetail from "./ProductDetail"
@@ -10,12 +9,13 @@ import ProductDetail from "./ProductDetail"
 import "./styles.css"
 
 const client = new ApolloClient({
-  uri: "https://b65930f3.ngrok.io/graphql",
+  uri: "http://localhost:4000/graphql",
   cacheRedirects: {
     Query: {
       getProduct: (_, args, { getCacheKey }) => {
-        console.log(args)
-        return getCacheKey({ __typename: "Product", id: args.path })
+        const pathParts = args.path.split('/')
+        const id = pathParts[pathParts.length - 1].replace('.uts', '')
+        return getCacheKey({ __typename: "Product", id })
       }
     }
   }

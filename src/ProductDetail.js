@@ -1,6 +1,7 @@
 import React from "react"
 import { Query } from "react-apollo"
 import gql from "graphql-tag"
+import ProductDetailImages from "./ProductDetailImages"
 
 const ProductDetail = props => (
   <Query
@@ -11,16 +12,30 @@ const ProductDetail = props => (
           name
           price
           rating
-          images
+          thumbnail
         }
       }
     `}
     variables={{ path: props.match.url }}
   >
     {({ loading, error, data }) => {
-      console.log(data)
+      if (loading) return <p>loading...</p>
       if (error) return <p>{error.message}</p>
-      return <pre>{JSON.stringify(data.product, null, 2)}</pre>
+
+      const { product } = data
+
+      return (
+        <div className="product-detail-root">
+          <ProductDetailImages
+            productPath={props.match.url}
+            productData={product}
+          />
+          <section className="product-detail-content">
+            <h1 className="product-detail-title">{product.name}</h1>
+            <p className="product-detail-price">${product.price}</p>
+          </section>
+        </div>
+      )
     }}
   </Query>
 )

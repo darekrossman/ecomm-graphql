@@ -6,8 +6,10 @@ import { Link } from "react-router-dom"
 const ProductList = () => (
   <Query
     query={gql`
-      {
-        products: getProducts(path: "/thumbnail/Furniture/Living-Room-Furniture/Console-Tables/pc/2285/c/3058/2610.uts") {
+      query GetProducts {
+        products: getProducts(
+          path: "/thumbnail/Furniture/Living-Room-Furniture/Console-Tables/pc/2285/c/3058/2610.uts"
+        ) {
           id
           name
           path
@@ -26,7 +28,7 @@ const ProductList = () => (
         <div className="product-grid">
           {data.products.map(product => (
             <Link to={product.path} key={product.id} className="product-card">
-              <div className="product-card-image">
+              <div className="product-card-image aspect-1">
                 <img src={product.thumbnail} alt={product.name} />
               </div>
               <div className="product-card-info">
