@@ -1,10 +1,10 @@
-import React from 'react'
-import { Spring, config } from 'react-spring'
-import Portal from './Portal'
-import Box from './Box'
-import Flex from './Flex'
-import Heading from './Heading'
-import IconButton from './IconButton'
+import React from "react"
+import { Spring, config } from "react-spring"
+import Portal from "./Portal"
+import Box from "./Box"
+import Flex from "./Flex"
+import Heading from "./Heading"
+import IconButton from "./IconButton"
 
 class Modal extends React.Component {
   render() {
@@ -51,14 +51,14 @@ class Modal extends React.Component {
                     mx={3}
                     flex={1}
                   >
-                    {title || ''}
+                    {title || ""}
                   </Heading>
                   <IconButton
-                    icon="X"
+                    icon="Close"
                     onClick={close}
                     mr={[2, 2, 3]}
                     color="grey.500"
-                    transparent
+                    bg="transparent"
                   />
                 </Flex>
                 <Box px={[3, 3, 4]} pt={1}>

@@ -43,12 +43,14 @@ class Header extends React.Component {
                 bg="#fff"
               >
                 <Flex width={40}>
-                  <IconButton
-                    icon="Menu"
-                    color="#111"
-                    bg="transparent"
-                    onClick={this.toggleNav}
-                  />
+                  {this.props.leftButton || (
+                    <IconButton
+                      icon="Menu"
+                      color="#111"
+                      bg="transparent"
+                      onClick={this.toggleNav}
+                    />
+                  )}
                 </Flex>
                 <Logo height="26px" />
                 <Flex width={40}>

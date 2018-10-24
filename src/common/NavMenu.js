@@ -1,7 +1,7 @@
 import React from "react"
 import styled from "styled-components"
 import { Link as _Link } from "react-router-dom"
-import { Flex, Box, Text, Icon } from "../ui"
+import { Box, Text, Icon } from "../ui"
 
 const Link = styled(_Link)`
   display: flex;

@@ -1,5 +1,4 @@
 import React from "react"
-import styled from "styled-components"
 import { Flex, Icon } from "../ui"
 
 const iterator = Array.from(Array(5).keys())

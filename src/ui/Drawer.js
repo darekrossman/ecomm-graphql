@@ -1,4 +1,9 @@
 import React from "react"
+import {
+  disableBodyScroll,
+  enableBodyScroll,
+  clearAllBodyScrollLocks
+} from "body-scroll-lock"
 import Portal from "./Portal"
 import Box from "./Box"
 import IconButton from "./IconButton"
@@ -21,11 +26,21 @@ class Drawer extends React.Component {
 
   componentDidUpdate(pprops, pstate) {
     if (this.state.isEntering && !pstate.isEntering && !this.state.isOpen) {
-      setTimeout(() => this.setState({ isOpen: true }))
+      disableBodyScroll(this.scrollElement)
+      setTimeout(() => {
+        this.setState({ isOpen: true })
+      })
     }
     if (this.state.isLeaving && !pstate.isLeaving && this.state.isOpen) {
+      enableBodyScroll(this.targetElement, {
+        reserveScrollBarGap: true
+      })
       setTimeout(() => this.setState({ isOpen: false }), 200)
     }
+  }
+
+  componentWillUnmount() {
+    clearAllBodyScrollLocks()
   }
 
   render() {
@@ -35,6 +50,7 @@ class Drawer extends React.Component {
       width = "280px",
       height = "100%",
       dock = "left",
+      header,
       ...props
     } = this.props
     const { isOpen, isEntering, isLeaving } = this.state
@@ -80,17 +96,22 @@ class Drawer extends React.Component {
               css={`
                 transform: ${transform};
                 transition: all 200ms ease-out;
+                overflow: auto;
+                -webkit-overflow-scrolling: touch;
               `}
               {...props}
+              ref={node => (this.scrollElement = node)}
             >
-              <IconButton
-                icon="Close"
-                onClick={close}
-                bg="transparent"
-                color="grey.800"
-              />
+              {header || (
+                <IconButton
+                  icon="Close"
+                  onClick={close}
+                  bg="transparent"
+                  color="grey.800"
+                />
+              )}
 
-              <Box>{this.props.children}</Box>
+              <Box overflow="auto">{this.props.children}</Box>
             </Box>
           </Box>
         </React.Fragment>

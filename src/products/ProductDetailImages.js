@@ -1,5 +1,4 @@
 import React from "react"
-import styled from "styled-components"
 import { Query } from "react-apollo"
 import gql from "graphql-tag"
 import { Image } from "../ui"
@@ -10,7 +9,7 @@ const PRODUCT_IMAGES_QUERY = gql`
       id
       images {
         s7 {
-          fluid(maxWidth: 320) {
+          fluid(maxWidth: 680) {
             ...FluidImage
           }
         }
@@ -33,7 +32,7 @@ class ProductDetailImages extends React.Component {
         {({ loading, error, data }) => {
           const thumbnail = props.productData.thumbnail
             ? props.productData.thumbnail.s7
-            : {}
+            : null
           const image =
             !loading && !error ? data.productImages.images[0].s7 : {}
 
@@ -41,7 +40,7 @@ class ProductDetailImages extends React.Component {
             <Image
               fluid={image.fluid}
               alt={props.productData.name}
-              blurUpPreview={thumbnail.fluid.src}
+              blurUpPreview={thumbnail && thumbnail.fluid.src}
             />
           )
         }}

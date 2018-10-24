@@ -1,5 +1,6 @@
 import chroma from "chroma-js"
 import { mixed } from "styled-system"
+import { createGlobalStyle as css } from "styled-components"
 
 const sys = rules => mixed({ theme, ...rules })
 
@@ -376,5 +377,34 @@ theme.buttons = {
     color: "tertiary.contrast"
   })
 }
+
+export const GlobalStyle = css`
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  body {
+    -webkit-font-smoothing: antialiased;
+    font-weight: 400;
+    box-sizing: inherit;
+  }
+
+  body,
+  input,
+  textarea,
+  select,
+  button {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+      Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+  }
+
+  a {
+    text-decoration: none;
+    color: inherit;
+  }
+`
 
 export default { ...theme }

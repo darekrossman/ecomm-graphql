@@ -8,7 +8,9 @@ export const ProductSummaryFragment = gql`
     path
     price
     rating
+    brand
     thumbnail {
+      src
       s7 {
         fluid(maxWidth: 250) {
           ...FluidImage

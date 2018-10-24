@@ -13,6 +13,7 @@
     "apollo-link-error": "^1.1.1",
     "apollo-link-http": "^1.5.5",
     "babel-plugin-styled-components": "^1.8.0",
+    "body-scroll-lock": "^2.5.10",
     "chroma-js": "^1.4.0",
     "graphql": "14.0.2",
     "polished": "^2.2.0",

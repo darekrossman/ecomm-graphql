@@ -1,7 +1,7 @@
 import React from "react"
 import { Transition, config } from "react-spring"
 import Spinner from "react-spinkit"
-import { Flex, Text } from "../ui"
+import { Flex } from "../ui"
 
 class LoadProgress extends React.Component {
   render() {

@@ -1,18 +1,16 @@
 import React from "react"
 import ReactDOM from "react-dom"
-import { BrowserRouter as Router, Route } from "react-router-dom"
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom"
 import { ApolloClient } from "apollo-client"
 import { InMemoryCache } from "apollo-cache-inmemory"
 import { HttpLink } from "apollo-link-http"
-import { BatchHttpLink } from "apollo-link-batch-http"
 import { onError } from "apollo-link-error"
 import { ApolloLink } from "apollo-link"
 import { ApolloProvider } from "react-apollo"
 import { ThemeProvider } from "styled-components"
-import theme from "./theme"
-import GlobalStyle from "./GlobalStyle"
+import theme, { GlobalStyle } from "./theme"
+import ModalSwitch from "./common/ModalSwitch"
 import ProductList from "./products/ProductList"
-import ProductDetail from "./products/ProductDetail"
 
 const client = new ApolloClient({
   link: ApolloLink.from([
@@ -52,26 +50,11 @@ function App() {
           <Router>
             <>
               <Route exact path="/" component={ProductList} />
-              <Route
-                path="/thumbnail/:sectionSlug/:categorySlug/:subcategorySlug/pc/:sectionId/c/:categoryId/:subcategoryId.uts"
-                component={ProductList}
-              />
-              <Route
-                path="/category/:sectionSlug/:subcategorySlug/pc/:sectionId/:subcategoryId.uts"
-                component={ProductList}
-              />
-              <Route
-                path="/product/:parentCategorySlug/:categorySlug/:productSlug/pc/:parentCategoryId/c/:categoryId/:productId.uts"
-                component={ProductDetail}
-              />
-              <Route
-                path="/product/:parentCategorySlug/:categorySlug/:subCategorySlug/:productSlug/pc/:parentCategoryId/c/:categoryId/sc/:subCategoryId/:productId.uts"
-                component={ProductDetail}
-              />
-              <Route
-                path="/product/:parentCategorySlug/:categorySlug/:productSlug/productVariantId/:productVariantId/pc/:parentCategoryId/c/:categoryId/:productId.uts"
-                component={ProductDetail}
-              />
+              <Route component={ModalSwitch} />
+
+              {/* <Route path="/men" component={ProductList} />
+              <Route path="/women" component={ProductList} />
+              <Route path="/top_10" component={ProductList} /> */}
             </>
           </Router>
         </ApolloProvider>

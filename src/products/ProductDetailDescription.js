@@ -13,7 +13,7 @@ const QUERY = gql`
   }
 `
 
-const ProductDetailDescription = props => (
+const ProductDetailDescription = ({ delayAnimation, ...props }) => (
   <Query query={QUERY} variables={{ path: props.path }}>
     {({ loading, error, data }) => {
       if (loading || error) return null
@@ -25,7 +25,7 @@ const ProductDetailDescription = props => (
           native
           from={{ opacity: 0, transform: "translateY(25px)" }}
           to={{ opacity: 1, transform: "translateY(0px)" }}
-          delay={50}
+          delay={delayAnimation ? 150 : 50}
           config={config.stiff}
         >
           {styles => (
