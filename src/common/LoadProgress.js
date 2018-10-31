@@ -8,12 +8,14 @@ class LoadProgress extends React.Component {
     return (
       <>
         <Transition
+          items={this.props.loading}
           from={{ opacity: 1 }}
           enter={{ opacity: 1 }}
           leave={{ opacity: 0 }}
           config={config.stiff}
         >
-          {this.props.loading &&
+          {loading =>
+            loading &&
             (styles => (
               <Flex
                 flex="1 1 auto"
@@ -31,7 +33,8 @@ class LoadProgress extends React.Component {
               >
                 <Spinner name="circle" color="#678cae" fadeIn="none" />
               </Flex>
-            ))}
+            ))
+          }
         </Transition>
         {!this.props.loading && this.props.children()}
       </>

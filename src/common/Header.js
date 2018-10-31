@@ -1,6 +1,7 @@
 import React from "react"
 import gql from "graphql-tag"
 import { Query } from "react-apollo"
+import { Link } from "react-router-dom"
 import NavMenu from "./NavMenu"
 import { Flex, Drawer, IconButton } from "../ui"
 
@@ -54,7 +55,13 @@ class Header extends React.Component {
                 </Flex>
                 <Logo height="26px" />
                 <Flex width={40}>
-                  <IconButton icon="Search" color="#111" bg="transparent" />
+                  <Link to="/cart">
+                    <IconButton
+                      icon="ShoppingCart"
+                      color="#111"
+                      bg="transparent"
+                    />
+                  </Link>
                 </Flex>
               </Flex>
 

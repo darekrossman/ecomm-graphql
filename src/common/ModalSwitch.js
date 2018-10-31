@@ -38,7 +38,7 @@ class ModalSwitch extends React.Component {
       this.previousLocation !== location
     ) // not initial render
     return (
-      <div>
+      <>
         <Switch location={isModal ? this.previousLocation : location}>
           <Route
             path="/thumbnail/:sectionSlug/:categorySlug/:subcategorySlug/pc/:sectionId/c/:categoryId/:subcategoryId.uts"
@@ -77,7 +77,7 @@ class ModalSwitch extends React.Component {
             />
           </>
         ) : null}
-      </div>
+      </>
     )
   }
 }

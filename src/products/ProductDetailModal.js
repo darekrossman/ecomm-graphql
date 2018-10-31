@@ -45,7 +45,3 @@ class ProductDetailModal extends React.Component {
 }
 
 export default ProductDetailModal
-
-// <Flex height={60} alignItems="center" bg="white">
-
-// </Flex>

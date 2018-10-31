@@ -353,7 +353,23 @@ const theme = {
   }
 }
 
-theme.buttons = {
+theme.textStyles = {
+  title: sys({
+    fontSize: 2,
+    lineHeight: "20px",
+    fontWeight: "bold"
+  }),
+  headline: sys({
+    fontSize: 3
+  }),
+  caption: sys({
+    fontSize: 0,
+    lineHeight: "20px",
+    color: "grey.700"
+  })
+}
+
+theme.buttonStyle = {
   transparent: sys({
     bg: "transparent",
     color: "grey.900",

@@ -6,7 +6,13 @@ import { Flex } from "../ui"
 const Layout = props => (
   <>
     {props.scrollToTopOnMount && <ScrollToTopOnMount />}
-    <Flex flexDirection="column" minHeight="100vh" align="stretch" {...props}>
+    <Flex
+      flexDirection="column"
+      minHeight="100vh"
+      align="stretch"
+      bg="grey.200"
+      {...props}
+    >
       <Header />
       {props.children}
     </Flex>

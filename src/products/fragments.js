@@ -6,6 +6,7 @@ export const ProductSummaryFragment = gql`
     id
     name
     path
+    sku
     price
     rating
     brand

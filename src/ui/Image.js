@@ -39,10 +39,10 @@ class Image extends React.Component {
   }
 
   render() {
-    const { alt, fluid, blurUpPreview } = this.props
+    const { alt, fluid, blurUpPreview, ...props } = this.props
     const { ready, loaded } = this.state
     return (
-      <AspectBox ref={node => (this.root = node)}>
+      <AspectBox ref={node => (this.root = node)} {...props}>
         {blurUpPreview && (
           <BlurredImg
             className="blur-up"
