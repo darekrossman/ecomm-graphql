@@ -17,7 +17,7 @@ const QUERY = gql`
 
 const ProductList = props => (
   <Layout bg="grey.200">
-    <QueryLoader query={QUERY} variables={{ path: props.match.url }}>
+    <QueryLoader query={QUERY} variables={{ path: props.location.pathname }}>
       {({ data }) => (
         <Grid
           p={3}

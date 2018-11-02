@@ -9,6 +9,8 @@ import ModalSwitch from "./common/ModalSwitch"
 import ProductList from "./products/ProductList"
 import Cart from "./cart/Cart"
 
+window.history.scrollRestoration = "manual"
+
 const client = createClient()
 
 function App() {

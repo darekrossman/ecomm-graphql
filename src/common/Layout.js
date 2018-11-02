@@ -5,12 +5,12 @@ import { Flex } from "../ui"
 
 const Layout = props => (
   <>
-    {props.scrollToTopOnMount && <ScrollToTopOnMount />}
+    <ScrollToTopOnMount />
     <Flex
       flexDirection="column"
       minHeight="100vh"
       align="stretch"
-      bg="grey.200"
+      bg="grey.100"
       {...props}
     >
       <Header />

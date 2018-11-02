@@ -1,5 +1,5 @@
 import React from "react"
-import { Transition, config } from "react-spring"
+import { Transition } from "react-spring"
 import Spinner from "react-spinkit"
 import { Flex } from "../ui"
 
@@ -12,7 +12,6 @@ class LoadProgress extends React.Component {
           from={{ opacity: 1 }}
           enter={{ opacity: 1 }}
           leave={{ opacity: 0 }}
-          config={config.stiff}
         >
           {loading =>
             loading &&

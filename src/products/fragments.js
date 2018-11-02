@@ -9,6 +9,7 @@ export const ProductSummaryFragment = gql`
     sku
     price
     rating
+    reviewCount
     brand
     thumbnail {
       src
@@ -20,4 +21,41 @@ export const ProductSummaryFragment = gql`
     }
   }
   ${Image.fragments.fluidImage}
+`
+
+export const ProductDetailFragment = gql`
+  fragment ProductDetailFragment on Product {
+    id
+    description
+    categoryId
+    parentCategoryId
+    subCategoryId
+    quantity
+    productVariantId
+    deliveryMethod
+    deliveryOptions {
+      key
+      value
+      primaryLabel
+      secondaryLabel
+    }
+  }
+`
+
+export const CartItemsFragment = gql`
+  fragment CartItemsFragment on Cart {
+    items {
+      ...ProductSummaryFragment
+      uuid
+      quantity
+      deliveryMethod
+      deliveryOptions {
+        key
+        value
+        primaryLabel
+        secondaryLabel
+      }
+    }
+  }
+  ${ProductSummaryFragment}
 `

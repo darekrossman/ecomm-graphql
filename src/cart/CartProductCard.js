@@ -6,13 +6,13 @@ import ProductDeliveryOptions from "../products/ProductDeliveryOptions"
 const Root = styled(Flex)`
   background: white;
   flex-direction: column;
-  box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.05);
+  box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.03);
   overflow: hidden;
 `
 
-const CartProductCard = ({ product }) => {
+const CartProductCard = ({ product, onRemove = () => null, ...props }) => {
   return (
-    <Root mb={2}>
+    <Root {...props}>
       <Flex flex="1 1 auto" p={3}>
         <Box width={100} flex="1 0 auto">
           <Image
@@ -45,10 +45,9 @@ const CartProductCard = ({ product }) => {
       <Flex
         justifyContent="space-between"
         alignItems="center"
-        py={3}
-        mx={3}
+        p={3}
         borderTop="1px solid"
-        borderColor="grey.200"
+        borderColor="grey.100"
       >
         <Text lineHeight={1}>Qty: {product.quantity}</Text>
         <Text textStyle="headline" fontWeight="bold" lineHeight={1}>
@@ -62,7 +61,12 @@ const CartProductCard = ({ product }) => {
       />
 
       <Flex p={3}>
-        <Button bg="transparent" px={0} height={24}>
+        <Button
+          bg="transparent"
+          px={0}
+          height={24}
+          onClick={() => onRemove(product.uuid)}
+        >
           <IconLabel
             icon="Close"
             size={14}

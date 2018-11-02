@@ -48,7 +48,13 @@ const ProductListCard = ({ product }) => {
         </Box>
 
         {product.rating !== null && (
-          <RatingStars rating={product.rating} size={14} mb={1} />
+          <RatingStars
+            rating={product.rating}
+            size={14}
+            fontSize={0}
+            mb={1}
+            count={product.reviewCount}
+          />
         )}
 
         <Text color="grey.900" fontSize={3}>
