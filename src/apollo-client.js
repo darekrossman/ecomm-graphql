@@ -30,7 +30,7 @@ const authLink = setContext((_, { headers }) => {
 })
 
 const httpLink = new HttpLink({
-  uri: process.env.REACT_APP_GRAPHQL_URI,
+  uri: "https://kirklands-graphql-hjykcdpqrk.now.sh/graphql",
   credentials: "same-origin"
 })
 
