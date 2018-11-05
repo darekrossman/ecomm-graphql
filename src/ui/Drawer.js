@@ -32,7 +32,7 @@ class Drawer extends React.Component {
       })
     }
     if (this.state.isLeaving && !pstate.isLeaving && this.state.isOpen) {
-      enableBodyScroll(this.targetElement, {
+      enableBodyScroll(this.scrollElement, {
         reserveScrollBarGap: true
       })
       setTimeout(() => this.setState({ isOpen: false }), 200)
@@ -61,8 +61,8 @@ class Drawer extends React.Component {
     }
 
     const transform = {
-      left: `translateX(${transitioning ? "0" : "-100%"})`,
-      right: `translateX(${transitioning ? "0" : "100%"})`
+      left: `translate3d(${transitioning ? "0" : "-100%"}, 0, 0)`,
+      right: `translate3d(${transitioning ? "0" : "100%"}, 0, 0)`
     }[dock]
 
     const margins = {
@@ -75,13 +75,17 @@ class Drawer extends React.Component {
         <React.Fragment>
           <Box
             bg={transitioning ? "rgba(0,0,0,0.4)" : "rgba(0,0,0,0)"}
-            position="fixed"
+            position="absolute"
             top={0}
             right={0}
             bottom={0}
             left={0}
             zIndex={1000}
             css={`
+              backface-visibility: hidden;
+              perspective: 1000;
+              will-change: background;
+              transform: translate3d(0, 0, 0);
               transition: all 200ms ${isLeaving ? "ease-in" : "ease-out"};
             `}
             {...portalProps}
@@ -97,7 +101,10 @@ class Drawer extends React.Component {
                 transform: ${transform};
                 transition: all 200ms ease-out;
                 overflow: auto;
+                perspective: 1000;
+                backface-visibility: hidden;
                 -webkit-overflow-scrolling: touch;
+                will-change: transform;
               `}
               {...props}
               ref={node => (this.scrollElement = node)}

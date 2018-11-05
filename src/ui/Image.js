@@ -21,21 +21,21 @@ const BlurredImg = styled.img`
 `
 
 class Image extends React.Component {
-  state = { loaded: false, ready: false }
+  state = { loaded: false, ready: true }
 
   componentDidMount() {
-    this.scrollObserver = new IntersectionObserver(
-      ([el], observer) => {
-        if (el.isIntersecting) {
-          this.setState({ ready: true })
-          this.scrollObserver.unobserve(this.root)
-        }
-      },
-      {
-        threshold: [0, 1.0]
-      }
-    )
-    this.scrollObserver.observe(this.root)
+    // this.scrollObserver = new IntersectionObserver(
+    //   ([el], observer) => {
+    //     if (el.isIntersecting) {
+    //       this.setState({ ready: true })
+    //       this.scrollObserver.unobserve(this.root)
+    //     }
+    //   },
+    //   {
+    //     threshold: [0, 1.0]
+    //   }
+    // )
+    // this.scrollObserver.observe(this.root)
   }
 
   render() {
