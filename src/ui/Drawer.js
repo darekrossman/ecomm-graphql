@@ -75,7 +75,7 @@ class Drawer extends React.Component {
         <React.Fragment>
           <Box
             bg={transitioning ? "rgba(0,0,0,0.4)" : "rgba(0,0,0,0)"}
-            position="absolute"
+            position="fixed"
             top={0}
             right={0}
             bottom={0}

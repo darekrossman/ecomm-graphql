@@ -4,6 +4,7 @@ import { InMemoryCache, defaultDataIdFromObject } from "apollo-cache-inmemory"
 import { HttpLink } from "apollo-link-http"
 import { onError } from "apollo-link-error"
 import { ApolloLink } from "apollo-link"
+import { createPersistedQueryLink } from "apollo-link-persisted-queries"
 import { setContext } from "apollo-link-context"
 import { withClientState } from "apollo-link-state"
 
@@ -29,9 +30,13 @@ const authLink = setContext((_, { headers }) => {
   }
 })
 
+const persistedQueryLink = createPersistedQueryLink({
+  useGETForHashedQueries: true
+})
+
 const httpLink = new HttpLink({
-  uri: "https://kirklands-graphql-hjykcdpqrk.now.sh/graphql",
-  credentials: "same-origin"
+  uri: "/graphql",
+  useGETForQueries: true
 })
 
 const cache = new InMemoryCache({
@@ -90,6 +95,12 @@ const stateLink = withClientState({
 
 export default () =>
   new ApolloClient({
-    link: ApolloLink.from([errorLink, stateLink, authLink, httpLink]),
+    link: ApolloLink.from([
+      errorLink,
+      stateLink,
+      authLink,
+      persistedQueryLink,
+      httpLink
+    ]),
     cache
   })
