@@ -1,6 +1,7 @@
 import React from "react"
 import styled from "styled-components"
 import gql from "graphql-tag"
+import VisibilitySensor from "react-visibility-sensor"
 import { AspectBox } from "./"
 
 const Img = styled.img`
@@ -24,53 +25,64 @@ class Image extends React.Component {
   state = { loaded: false, ready: false }
 
   componentDidMount() {
-    if (!window.IntersectionObserver) {
+    // if (!window.IntersectionObserver) {
+    //   this.setState({ ready: true })
+    //   return
+    // }
+    // this.scrollObserver = new IntersectionObserver(
+    //   ([el], observer) => {
+    //     if (el.isIntersecting) {
+    //       this.setState({ ready: true })
+    //       this.scrollObserver.unobserve(this.root)
+    //     }
+    //   },
+    //   {
+    //     threshold: [0, 1.0]
+    //   }
+    // )
+    // this.scrollObserver.observe(this.root)
+  }
+
+  onVisibilityChange = isVisible => {
+    if (isVisible) {
       this.setState({ ready: true })
-      return
     }
-    this.scrollObserver = new IntersectionObserver(
-      ([el], observer) => {
-        if (el.isIntersecting) {
-          this.setState({ ready: true })
-          this.scrollObserver.unobserve(this.root)
-        }
-      },
-      {
-        threshold: [0, 1.0]
-      }
-    )
-    this.scrollObserver.observe(this.root)
   }
 
   render() {
     const { alt, fluid, blurUpPreview, ...props } = this.props
     const { ready, loaded } = this.state
     return (
-      <AspectBox ref={node => (this.root = node)} {...props}>
-        {blurUpPreview && (
-          <BlurredImg
-            className="blur-up"
-            src={blurUpPreview}
-            alt="blurred preview"
-          />
-        )}
-        {fluid &&
-          ready && (
-            <picture>
-              <source
-                type="image/webp"
-                srcSet={fluid.srcSet}
-                sizes={fluid.sizes}
-              />
-              <Img
-                src={fluid.src}
-                alt={alt}
-                loaded={loaded}
-                onLoad={e => this.setState({ loaded: true })}
-              />
-            </picture>
+      <VisibilitySensor
+        onChange={this.onVisibilityChange}
+        partialVisibility={true}
+      >
+        <AspectBox ref={node => (this.root = node)} {...props}>
+          {blurUpPreview && (
+            <BlurredImg
+              className="blur-up"
+              src={blurUpPreview}
+              alt="blurred preview"
+            />
           )}
-      </AspectBox>
+          {fluid &&
+            ready && (
+              <picture>
+                <source
+                  type="image/webp"
+                  srcSet={fluid.srcSet}
+                  sizes={fluid.sizes}
+                />
+                <Img
+                  src={fluid.src}
+                  alt={alt}
+                  loaded={loaded}
+                  onLoad={e => this.setState({ loaded: true })}
+                />
+              </picture>
+            )}
+        </AspectBox>
+      </VisibilitySensor>
     )
   }
 }
