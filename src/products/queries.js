@@ -6,7 +6,7 @@ import {
 } from "./fragments"
 
 export const productSummaryQuery = gql`
-  query GetProduct($path: String!) {
+  query GetProductSummary($path: String!) {
     product: getProduct(path: $path) {
       ...ProductSummaryFragment
     }
@@ -15,7 +15,7 @@ export const productSummaryQuery = gql`
 `
 
 export const productDetailQuery = gql`
-  query GetProductDeliveryOptions($path: String!) {
+  query GetProductDetail($path: String!) {
     productDetail: getProduct(path: $path) {
       ...ProductDetailFragment
     }

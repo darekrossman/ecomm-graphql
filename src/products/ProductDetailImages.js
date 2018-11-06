@@ -4,7 +4,7 @@ import gql from "graphql-tag"
 import { Image } from "../ui"
 
 const PRODUCT_IMAGES_QUERY = gql`
-  query GetProduct($path: String!) {
+  query GetProductImages($path: String!) {
     productImages: getProduct(path: $path) {
       id
       images {
