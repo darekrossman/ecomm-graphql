@@ -59,13 +59,6 @@ const cache = new InMemoryCache({
     }
   },
   dataIdFromObject: object => {
-    // Products stored in the cart should use an identifier other than
-    // the field 'id' so they will be stored independently in the local
-    // cart cache. Cart products will have a unique field called `uuid`
-    // which we can use to create a custom cache key for each item.
-    if (object.__typename === "Product" && object.uuid) {
-      return `Cart:Product:${object.uuid}`
-    }
     return defaultDataIdFromObject(object)
   }
 })

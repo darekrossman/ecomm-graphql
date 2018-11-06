@@ -45,7 +45,22 @@ export const ProductDetailFragment = gql`
 export const CartItemsFragment = gql`
   fragment CartItemsFragment on Cart {
     items {
-      ...ProductSummaryFragment
+      id
+      name
+      path
+      sku
+      price
+      rating
+      reviewCount
+      brand
+      thumbnail {
+        src
+        s7 {
+          fluid(maxWidth: 250) {
+            ...FluidImage
+          }
+        }
+      }
       uuid
       quantity
       deliveryMethod
@@ -57,5 +72,5 @@ export const CartItemsFragment = gql`
       }
     }
   }
-  ${ProductSummaryFragment}
+  ${Image.fragments.fluidImage}
 `
