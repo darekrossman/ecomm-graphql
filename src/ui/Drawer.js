@@ -51,6 +51,7 @@ class Drawer extends React.Component {
       height = "100%",
       dock = "left",
       header,
+      noBackdrop,
       ...props
     } = this.props
     const { isOpen, isEntering, isLeaving } = this.state
@@ -74,7 +75,13 @@ class Drawer extends React.Component {
       <Portal>
         <React.Fragment>
           <Box
-            bg={transitioning ? "rgba(0,0,0,0.4)" : "rgba(0,0,0,0)"}
+            bg={
+              noBackdrop
+                ? "transparent"
+                : transitioning
+                  ? "rgba(0,0,0,0.4)"
+                  : "rgba(0,0,0,0)"
+            }
             position="fixed"
             top={0}
             right={0}

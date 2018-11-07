@@ -20,6 +20,7 @@ class ProductDetailModal extends React.Component {
   render() {
     return (
       <Drawer
+        noBackdrop
         isOpen={this.state.isOpen}
         close={this.goBack}
         width="100%"
