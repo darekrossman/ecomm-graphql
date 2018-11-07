@@ -70,7 +70,7 @@ const DeliveryOptions = ({ delayAnimation, product }) => (
     config={{
       tension: 210,
       friction: 25,
-      delay: delayAnimation ? 380 : 180
+      delay: 380
     }}
   >
     {styles => (
@@ -181,8 +181,7 @@ const ProductDescription = ({ delayAnimation, product }) => (
       native
       from={{ opacity: 0, transform: "translateY(25px)" }}
       to={{ opacity: 1, transform: "translateY(0px)" }}
-      delay={delayAnimation ? 350 : 250}
-      config={{ tension: 210, friction: 25 }}
+      config={{ tension: 210, friction: 25, delay: 400 }}
     >
       {styles => (
         <animated.div style={styles}>
@@ -239,26 +238,54 @@ const Detail = ({ delayAnimation, ...props }) => (
           <ProductSummary delayAnimation={delayAnimation} product={product} />
         </Box>
 
-        <Query
-          query={productDetailQuery}
-          variables={{ path: props.location.pathname }}
-        >
-          {({ error, loading, data }) =>
-            !error &&
-            !loading && (
-              <Fragment>
-                <DeliveryOptions
-                  delayAnimation={delayAnimation}
-                  product={{ ...product, ...data.productDetail }}
-                />
-                <ProductDescription
-                  delayAnimation={delayAnimation}
-                  product={{ ...product, ...data.productDetail }}
-                />
-              </Fragment>
-            )
-          }
-        </Query>
+        <Box position="relative" minHeight={100}>
+          <Query
+            query={productDetailQuery}
+            variables={{ path: props.location.pathname }}
+          >
+            {({ error, loading, data }) =>
+              !error && (
+                <Transition
+                  items={loading}
+                  from={{ opacity: 1 }}
+                  enter={{ opacity: 1 }}
+                  leave={{ opacity: 0 }}
+                  config={{ tension: 350, friction: 30 }}
+                >
+                  {loading =>
+                    loading
+                      ? props => (
+                          <animated.div
+                            style={{
+                              ...props,
+                              position: "absolute",
+                              left: "50%",
+                              top: "50%",
+                              marginTop: -11,
+                              marginLeft: -11
+                            }}
+                          >
+                            <Spinner name="circle" color="#678cae" />
+                          </animated.div>
+                        )
+                      : props => (
+                          <animated.div style={props}>
+                            <DeliveryOptions
+                              delayAnimation={delayAnimation}
+                              product={{ ...product, ...data.productDetail }}
+                            />
+                            <ProductDescription
+                              delayAnimation={delayAnimation}
+                              product={{ ...product, ...data.productDetail }}
+                            />
+                          </animated.div>
+                        )
+                  }
+                </Transition>
+              )
+            }
+          </Query>
+        </Box>
       </Fragment>
     )}
   </QueryLoader>

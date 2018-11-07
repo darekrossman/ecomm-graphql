@@ -1,5 +1,6 @@
 import React from "react"
 import styled from "styled-components"
+import { Transition, animated } from "react-spring"
 import gql from "graphql-tag"
 import VisibilitySensor from "react-visibility-sensor"
 import { AspectBox } from "./"
@@ -24,25 +25,6 @@ const BlurredImg = styled.img`
 class Image extends React.Component {
   state = { loaded: false, ready: false }
 
-  componentDidMount() {
-    // if (!window.IntersectionObserver) {
-    //   this.setState({ ready: true })
-    //   return
-    // }
-    // this.scrollObserver = new IntersectionObserver(
-    //   ([el], observer) => {
-    //     if (el.isIntersecting) {
-    //       this.setState({ ready: true })
-    //       this.scrollObserver.unobserve(this.root)
-    //     }
-    //   },
-    //   {
-    //     threshold: [0, 1.0]
-    //   }
-    // )
-    // this.scrollObserver.observe(this.root)
-  }
-
   onVisibilityChange = isVisible => {
     if (isVisible) {
       this.setState({ ready: true })
@@ -58,29 +40,54 @@ class Image extends React.Component {
         partialVisibility={true}
       >
         <AspectBox ref={node => (this.root = node)} {...props}>
-          {blurUpPreview && (
-            <BlurredImg
-              className="blur-up"
-              src={blurUpPreview}
-              alt="blurred preview"
-            />
-          )}
-          {fluid &&
-            ready && (
-              <picture>
-                <source
-                  type="image/webp"
-                  srcSet={fluid.srcSet}
-                  sizes={fluid.sizes}
-                />
-                <Img
-                  src={fluid.src}
-                  alt={alt}
-                  loaded={loaded}
-                  onLoad={e => this.setState({ loaded: true })}
-                />
-              </picture>
-            )}
+          <Transition
+            native
+            items={fluid && ready}
+            from={{
+              position: "absolute",
+              opacity: 1
+            }}
+            enter={{
+              opacity: 1
+            }}
+            leave={{
+              opacity: 0
+            }}
+            config={{ tension: 300, friction: 30, delay: 5000 }}
+          >
+            {isReady =>
+              !isReady
+                ? props => (
+                    <animated.div style={props}>
+                      {blurUpPreview ? (
+                        <BlurredImg
+                          className="blur-up"
+                          src={blurUpPreview}
+                          alt="blurred preview"
+                        />
+                      ) : null}
+                      )}
+                    </animated.div>
+                  )
+                : props => (
+                    <animated.div style={props}>
+                      <picture>
+                        <source
+                          type="image/webp"
+                          srcSet={fluid.srcSet}
+                          sizes={fluid.sizes}
+                        />
+                        <Img
+                          src={fluid.src}
+                          alt={alt}
+                          loaded={loaded}
+                          onLoad={e => this.setState({ loaded: true })}
+                        />
+                      </picture>
+                    </animated.div>
+                  )
+            }
+          </Transition>
         </AspectBox>
       </VisibilitySensor>
     )
